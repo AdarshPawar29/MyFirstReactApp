@@ -1,13 +1,37 @@
 import React from 'react';
-import Todos from '.components/Todos';
+import Todos from './components/Todos';
 import './App.css';
 
-
 class App extends React.Component {
+  state = {
+    todos: [
+      {
+        id: 1,
+        title: 'Delete index.html',
+        completed: false
+      },
+      {
+        id: 2,
+        title: 'Make a new component',
+        completed: true
+      },
+      {
+        id: 3,
+        title: 'Import the Todos.js in App.js',
+        completed: false
+      },
+      {
+        id: 4,
+        title: 'Make a State and write the task',
+        completed: true
+      }
+    ]
+  }
   render(){
+    console.log(this.state.todos);
     return (
       <div className="App">
-       <h1>App</h1>
+       <Todos todos = {this.state.todos}/>
       </div>
     );
   }
