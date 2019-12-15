@@ -1,29 +1,33 @@
 import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Header from './components/layout/Header'
 import Todos from './components/Todos';
 import AddTodo from './components/AddTodo'
+import About from './components/Pages/About'
+import uuid from 'uuid' //to crate random id
+import axios from 'axios'
 import './App.css';
 
 class App extends React.Component {
   state = {
     todos: [
       {
-        id: 1,
+        id: uuid.v4(),
         title: 'Delete index.html',
         completed: false
       },
       {
-        id: 2,
+        id: uuid.v4(),
         title: 'Make a new component',
         completed: false
       },
       {
-        id: 3,
+        id: uuid.v4(),
         title: 'Import the Todos.js in App.js',
         completed: false
       },
       {
-        id: 4,
+        id: uuid.v4(),
         title: 'Make a State and write the task',
         completed: false
       }
@@ -48,63 +52,33 @@ class App extends React.Component {
   }
   //add todo
   addTodo = (title) => {
-    
-  }
+    const newTodo = {
+      id : uuid.v4(),
+      title,
+      completed: false
+    }
+    this.setState({ todos: [...this.state.todos, newTodo]})
+   }
 
   render(){
     console.log(this.state.todos);
     return (
-      <div className="App">
-        <div className="container">
-        <Header/>
-        <AddTodo addTodo = {this.addTodo}/>
-        <Todos todos = {this.state.todos} markComplete = {this.markComplete} delTodo = {this.delTodo}/>
+      <Router>
+        <div className="App">
+          <div className="container">
+          <Header/>
+          <Route exact path="/" render = {props => (
+            <React.Fragment>
+              <AddTodo addTodo = {this.addTodo}/>
+              <Todos todos = {this.state.todos} markComplete = {this.markComplete} delTodo = {this.delTodo}/>
+            </React.Fragment>
+          )}/>
+          <Route path="/about" component={About} />
+          </div>
         </div>
-      </div>
+      </Router>      
     );
   }
 }
 
 export default App;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
-
-//export default App;
