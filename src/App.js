@@ -5,7 +5,7 @@ import Todos from './components/Todos';
 import AddTodo from './components/AddTodo'
 import About from './components/Pages/About'
 import uuid from 'uuid' //to crate random id
-import axios from 'axios'
+//import axios from 'axios'
 import './App.css';
 
 class App extends React.Component {
