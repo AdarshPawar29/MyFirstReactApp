@@ -1,5 +1,7 @@
 import React from 'react';
+import Header from './components/layout/Header'
 import Todos from './components/Todos';
+import AddTodo from './components/AddTodo'
 import './App.css';
 
 class App extends React.Component {
@@ -13,7 +15,7 @@ class App extends React.Component {
       {
         id: 2,
         title: 'Make a new component',
-        completed: true
+        completed: false
       },
       {
         id: 3,
@@ -23,7 +25,7 @@ class App extends React.Component {
       {
         id: 4,
         title: 'Make a State and write the task',
-        completed: true
+        completed: false
       }
     ]
   }
@@ -38,15 +40,26 @@ class App extends React.Component {
        return todo;
      })})
   }
+
+  //delete todo item 
   delTodo = (id) => {
-    console.log(id)
+    //to copy all the variables which already there we can ues sprade oprator which is '...'
+    this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)]});
+  }
+  //add todo
+  addTodo = (title) => {
+    
   }
 
   render(){
     console.log(this.state.todos);
     return (
       <div className="App">
-       <Todos todos = {this.state.todos} markComplete = {this.markComplete} delTodo = {this.delTodo}/>
+        <div className="container">
+        <Header/>
+        <AddTodo addTodo = {this.addTodo}/>
+        <Todos todos = {this.state.todos} markComplete = {this.markComplete} delTodo = {this.delTodo}/>
+        </div>
       </div>
     );
   }
