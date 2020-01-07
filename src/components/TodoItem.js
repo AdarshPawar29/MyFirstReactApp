@@ -27,13 +27,14 @@ export class TodoItem extends Component {
 
     render() {
         //pulling out the variables ID and TITLE from the prop so that we dont need to use this function many times 
-        const {id, title} = this.props.todo;
+        const {_id, title} = this.props.todo;
+        console.log(_id);
         return (
             <div style = {this.getStyle()}> 
                 <p>
-                    <input type = "checkbox"  onChange = {this.props.markComplete.bind(this, id)}/>{''}
+                    <input type = "checkbox"  onChange = {this.props.markComplete.bind(this, _id)}/>{''}
                     { title }
-                    <button style = {btnStyle} onClick = {this.props.delTodo.bind(this, id)}>X</button>
+                    <button style = {btnStyle} onClick = {this.props.delTodo.bind(this, _id)}>X</button>
                 </p>
             </div>
         )

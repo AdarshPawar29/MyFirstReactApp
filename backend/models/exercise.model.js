@@ -9,5 +9,5 @@ const userSchema = new Schema({
     date: {type: Date, required: true},
 });
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model('Exercises', userSchema);
 module.exports = User;
