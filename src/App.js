@@ -31,7 +31,7 @@ class App extends React.Component {
 
   //toggle complete 
   markComplete = id => {
-    console.log(id) // we getting the id from Todos.js fun then TodoItem.js fun and with the help of .bind
+    //console.log(id) // we getting the id from Todos.js fun then TodoItem.js fun and with the help of .bind
     
     this.setState({todos: this.state.todos.map(todo => {
        if(todo._id === id){
@@ -48,7 +48,7 @@ class App extends React.Component {
         if(res.status === 200){
           console.log(res => res.data);
         }
-         console.log("im in");
+         //console.log("im in");
         });
        }
        return todo;
@@ -59,11 +59,11 @@ class App extends React.Component {
 
   delTodo = id => {
     //to copy all the variables which already there we can ues sprade oprator which is '...'
-    console.log(id);
-    console.log("***");
+    //console.log(id);
+    //console.log("***");
     axios.delete('http://localhost:5000/todoList/'+id)
       .then(res => {
-        console.log(res, "SSSSSSSSS")
+        //console.log(res, "SSSSSSSSS")
         if(res.status === 200){
           this.setState({ todos: [...this.state.todos.filter(todo => todo._id !== id)]});
         }

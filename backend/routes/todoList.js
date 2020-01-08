@@ -16,7 +16,7 @@ router.route('/add').post((req, res) => {
 
   newTitle.save((err, data) => {
     if(data)
-      res.json({status: 200, message: 'Successfully added your task', data: data._id})
+      res.json({status: 200, message: 'Successfully added your task', data: data})
     else
      res.json({status: 400, message: 'Error occurred while adding the task'})
   })
