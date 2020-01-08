@@ -43,7 +43,7 @@ class App extends React.Component {
           completed : todo.completed,
         }
         console.log(updateTodo);
-        axios.post('http://localhost:5000/todoList/update/'+id,{updateTodo})
+        axios.post('http://localhost:5000/todoList/update/'+id,updateTodo)
           .then(res => {
         if(res.status === 200){
           console.log(res => res.data);
@@ -92,9 +92,8 @@ class App extends React.Component {
       if(res.status === 200){
         newTodo._id = res.data;
         this.setState({ todos: [...this.state.todos, newTodo]})
-        
       }
-      console.log(res.data)
+      // console.log()
     })
    }
 
