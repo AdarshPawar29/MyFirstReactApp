@@ -3,7 +3,7 @@ let List = require('../models/todoList.model');
 
 router.route('/').get((req, res) => {
   List.find() 
-    .then(lists => res.json({code: 200, data: lists})) 
+    .then(lists => res.json({status: 200, data: lists})) 
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
@@ -43,9 +43,15 @@ router.route('/update/:id').post((req, res)=> {
     todoList.title = req.body.title;
     todoList.completed = req.body.completed;
 
-    todoList.save()
-    .then(() => res.json('List updated!'))
-    .catch(err => res.status(400).json('Error: '+ err));
+    todoList.save((err, data) => {
+      if(data)
+        res.json({status: 200, message: 'Successfully updated your task'})
+      else
+       res.json({status: 400, message: 'Error occurred while updating the task'})
+    })
+    // todoList.save()
+    // .then(() => res.json('List updated!'))
+    // .catch(err => res.status(400).json('Error: '+ err));
   })
   .catch(err => res.status(400).json('Error: '+ err));
 })

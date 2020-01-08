@@ -6,8 +6,8 @@ import AddTodo from './components/AddTodo'
 import About from './components/Pages/About'
 import uuid from 'uuid' //to crate random id
 import axios from 'axios'
-import toastr from 'reactjs-toastr';
-import 'reactjs-toastr/lib/toast.css';
+// import toastr from 'reactjs-toastr';
+// import 'reactjs-toastr/lib/toast.css';
 
 
 import './App.css';
@@ -27,12 +27,29 @@ class App extends React.Component {
     })
   }
 
+  //update completed
+
   //toggle complete 
   markComplete = id => {
-     //console.log(id) // we getting the id from Todos.js fun then TodoItem.js fun and with the help of .bind
+    console.log(id) // we getting the id from Todos.js fun then TodoItem.js fun and with the help of .bind
+    
     this.setState({todos: this.state.todos.map(todo => {
        if(todo._id === id){
-          todo.completed = !todo.completed;
+        todo.completed = !todo.completed;
+        let updateTodo = {
+          _id: id,
+          id : todo.id,
+          title: todo.title,
+          completed : todo.completed,
+        }
+        console.log(updateTodo);
+        axios.post('http://localhost:5000/todoList/update/'+id,{updateTodo})
+          .then(res => {
+        if(res.status === 200){
+          console.log(res => res.data);
+        }
+         console.log("im in");
+        });
        }
        return todo;
      })})
