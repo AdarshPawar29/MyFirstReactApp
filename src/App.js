@@ -18,7 +18,7 @@ class App extends React.Component {
   }
 
   componentDidMount(){
-    axios.get('http://localhost:5000/todoList/')
+    axios.get(process.env.PORT ||'http://localhost:5000/todoList/')
     .then(res => {
       this.setState({todos: res.data.data})
     })
@@ -43,7 +43,7 @@ class App extends React.Component {
           completed : todo.completed,
         }
         console.log(updateTodo);
-        axios.post('http://localhost:5000/todoList/update/'+id,updateTodo)
+        axios.post(process.env.PORT ||'http://localhost:5000/todoList/update/'+id,updateTodo)
           .then(res => {
         if(res.status === 200){
           console.log(res => res.data);
@@ -61,7 +61,7 @@ class App extends React.Component {
     //to copy all the variables which already there we can ues sprade oprator which is '...'
     //console.log(id);
     //console.log("***");
-    axios.delete('http://localhost:5000/todoList/'+id)
+    axios.delete(process.env.PORT ||'http://localhost:5000/todoList/'+id)
       .then(res => {
         //console.log(res, "SSSSSSSSS")
         if(res.status === 200){
@@ -87,7 +87,7 @@ class App extends React.Component {
       completed: false
     }
     
-    axios.post('http://localhost:5000/todoList/add', newTodo)
+    axios.post(process.env.PORT ||'http://localhost:5000/todoList/add', newTodo)
     .then(res => {
       if(res.status === 200){
         newTodo._id = res.data;
