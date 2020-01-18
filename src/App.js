@@ -5,11 +5,11 @@ import Todos from './components/Todos';
 import AddTodo from './components/AddTodo'
 import About from './components/Pages/About'
 import uuid from 'uuid' //to crate random id
-import axios from 'axios'
-// import toastr from 'reactjs-toastr';
-// import 'reactjs-toastr/lib/toast.css';
-
-
+import axios from 'axios';
+import toastr from 'toastr'
+import 'toastr/build/toastr.min.css';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import './App.css';
 
 class App extends React.Component {
@@ -48,11 +48,11 @@ class App extends React.Component {
         if(res.status === 200){
           console.log(res => res.data);
         }
-         //console.log("im in");
         });
        }
        return todo;
-     })})
+      })
+    })
   }
 
   //delete todo item 
@@ -61,14 +61,32 @@ class App extends React.Component {
     //to copy all the variables which already there we can ues sprade oprator which is '...'
     //console.log(id);
     //console.log("***");
-    axios.delete(process.env.PORT ||'http://localhost:5000/todoList/'+id)
-      .then(res => {
-        //console.log(res, "SSSSSSSSS")
-        if(res.status === 200){
-          this.setState({ todos: [...this.state.todos.filter(todo => todo._id !== id)]});
-        }
-      });
 
+    confirmAlert({
+      title: 'Confirm to delete',
+      message: 'Are you sure to do this.', 
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => {
+            axios.delete(process.env.PORT ||'http://localhost:5000/todoList/'+id)
+            .then(res => {
+              
+              if(res.status === 200){
+                this.setState({ todos: [...this.state.todos.filter(todo => todo._id !== id)]});
+                toastr.success('Success', 'Successfully deleted todo task')
+              }
+              else           
+                toastr.error('', 'Something went wrong')
+            });
+          }
+        },
+        {
+          label: 'No',
+          onClick: () => {}
+        }
+      ]
+    });
   }
   // delTodo = (id) => {
   //   //to copy all the variables which already there we can ues sprade oprator which is '...'
@@ -92,6 +110,7 @@ class App extends React.Component {
       if(res.status === 200){
         newTodo._id = res.data;
         this.setState({ todos: [...this.state.todos, newTodo]})
+        toastr.info('', 'Your task is added!')
       }
       // console.log()
     })

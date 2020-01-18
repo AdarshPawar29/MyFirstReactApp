@@ -12,8 +12,7 @@ app.use(express.json());
 
 //const uri = process.env.ATLAS_URI;
 const uri = "mongodb+srv://u1:u1@cluster0-u3zl8.mongodb.net/test?retryWrites=true&w=majority";
-mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true }
-);
+mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true });
 const connection = mongoose.connection;
 connection.once('open', () => {
   console.log("MongoDB database connection established successfully");
